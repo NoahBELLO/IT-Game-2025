@@ -1,0 +1,29 @@
+<div class="dashboard">
+    <h2>Tableau de Bord</h2>
+
+    <!-- Indicateurs Clés -->
+    <div class="indicators">
+        <div *ngFor="let item of data" class="card">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.value }}</p>
+        </div>
+    </div>
+
+    <!-- Tableau des données brutes -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Valeur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.value }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
