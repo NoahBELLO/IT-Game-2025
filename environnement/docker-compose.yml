@@ -1,0 +1,19 @@
+services:
+  apiAffichage:
+    container_name: apiAffichage
+    build:
+      context: ../backend/apiAffichage
+    env_file:
+      - ../backend/apiAffichage/environnements/.env
+    volumes:
+      - ../backend/apiAffichage:/usr/src/app
+    ports:
+      - 5000:5000
+    networks:
+      - it_game_projet
+    command: [ "sh", "./install.sh" ]
+
+networks:
+  it_game_projet:
+    driver: bridge
+    external: true
