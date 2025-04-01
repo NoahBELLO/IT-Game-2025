@@ -1,7 +1,7 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
-require('dotenv').config();
+const dotvenv = require('dotenv').config();
 
-const uri = process.env.MONGO_URI; // Récupérer l'URI depuis .env
+const uri = process.env.MONGO_URI;
 
 const client = new MongoClient(uri, {
     serverApi: {
@@ -14,10 +14,10 @@ const client = new MongoClient(uri, {
 async function connectDB() {
     try {
         await client.connect();
-        console.log(" Connexion réussie à MongoDB");
-        return client.db("ITGame"); // Retourne la base de données
+        console.log("Connexion réussie à MongoDB");
+        return client.db("ITGame");
     } catch (err) {
-        console.error(" Erreur de connexion à MongoDB:", err);
+        console.error("Erreur de connexion à MongoDB:", err);
         process.exit(1);
     }
 }

@@ -2,4 +2,4 @@
 
 npm install
 
-npx nodemon --legacy-watch server.js
+npx nodemon --legacy-watch src/server.js

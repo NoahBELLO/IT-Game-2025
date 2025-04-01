@@ -1,2 +1,5 @@
-backend/node_modules/
-.env
+backend/apiAffichage/node_modules/
+backend/apiAffichage/environnements/.env
+backend/apiLogs/environnements/.env
+backend/apiLogs/node_modules/
+environnement/conf.d/default.conf

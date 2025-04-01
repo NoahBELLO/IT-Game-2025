@@ -4,10 +4,14 @@
             <a routerLink="/"><img src="LogoProjet.ico" alt="Logo du projet" id="logo"></a>
         </div>
         <div class="navbar_titre">
-            <h1>AegisSécurité</h1>
+            <h1>All Access CyberSecurity</h1>
         </div>
         <div class="navbar_action">
             <div><button id="maj" (click)="maj()">MAJ des logs</button></div>
         </div>
     </div>
 </nav>
+
+<div *ngIf="messageVisible" class="message">
+    Les logs ont été mis à jour avec succès !
+</div>

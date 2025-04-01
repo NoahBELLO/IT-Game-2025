@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private apiUrl = 'http://votre-api.com/maj';
+  private apiUrl = 'http://localhost:3000/logs/';
 
   constructor(private http: HttpClient) { }
 

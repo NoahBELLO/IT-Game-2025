@@ -3,6 +3,6 @@ const { getLogs } = require("../controllers/logController");
 
 const router = express.Router();
 
-router.get("/", getLogs); // Route GET pour récupérer les logs
+router.get("/", getLogs);
 
 module.exports = router;

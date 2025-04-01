@@ -1,6 +1,21 @@
 services:
-  apiAffichage:
-    container_name: apiAffichage
+  api_logs:
+    container_name: api_logs
+    build:
+      context: ../backend/apiLogs
+    env_file:
+      - ../backend/apiLogs/environnements/.env
+    volumes:
+      - ../backend/apiLogs:/usr/src/app
+      - ../backend/data:/usr/src/data
+    ports:
+      - 5001:5001
+    networks:
+      - it_game_projet
+    command: [ "sh", "./install.sh" ]
+
+  api_affichage:
+    container_name: api_affichage
     build:
       context: ../backend/apiAffichage
     env_file:
@@ -22,9 +37,22 @@ services:
     ports:
       - 4200:4200
     volumes:
-      - ../frontend:/usr/src/app  
+      - ../frontend:/usr/src/app
     networks:
       - it_game_projet
+
+  nginx:
+    container_name: nginx-container
+    image: nginx:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    networks:
+      - it_game_projet
+    depends_on:
+      - api_logs
+      - api_affichage
 
 networks:
   it_game_projet:
