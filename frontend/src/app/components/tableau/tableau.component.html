@@ -1,0 +1,17 @@
+<div class="tableau-container">
+    <h2>Tableau des données sélectionnées</h2>
+    <table>
+        <tr>
+            <th>Source IP</th>
+            <th>Destination IP</th>
+            <th>Protocole</th>
+            <th>Timestamp</th>
+        </tr>
+        <tr *ngFor="let entry of data">
+            <td>{{ entry.source_ip }}</td>
+            <td>{{ entry.dest_ip }}</td>
+            <td>{{ entry.protocol }}</td>
+            <td>{{ entry.timestamp }}</td>
+        </tr>
+    </table>
+</div>

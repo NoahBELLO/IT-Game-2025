@@ -22,6 +22,7 @@ services:
       - ../backend/apiAffichage/environnements/.env
     volumes:
       - ../backend/apiAffichage:/usr/src/app
+      - ../backend/csv:/usr/src/csv
     ports:
       - 5000:5000
     networks:

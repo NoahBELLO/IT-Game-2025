@@ -1,16 +1,16 @@
-<div class="dashboard">
-    <h2>Tableau de Bord</h2>
+<!-- <div class="dashboard">
+    <h2>Tableau de Bord</h2> -->
 
-    <!-- Indicateurs Clés -->
-    <div class="indicators">
+<!-- Indicateurs Clés -->
+<!-- <div class="indicators">
         <div *ngFor="let item of data" class="card">
             <h3>{{ item.name }}</h3>
             <p>{{ item.value }}</p>
         </div>
-    </div>
+    </div> -->
 
-    <!-- Tableau des données brutes -->
-    <div class="table-container">
+<!-- Tableau des données brutes -->
+<!-- <div class="table-container">
         <table>
             <thead>
                 <tr>
@@ -25,5 +25,30 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+</div> -->
+
+<div class="dashboard-container">
+    <div class="controls">
+        <div class="combo-box" id="visualisation">
+            <label class="nomLabel" for="viewSelector">Vue :</label>
+            <select id="viewSelector" [(ngModel)]="selectedView">
+                <option *ngFor="let view of views" [value]="view.value">{{ view.label }}</option>
+            </select>
+        </div>
+
+        <div class="combo-box" id="donnees">
+            <label class="nomLabel" for="dataSelector">Données :</label>
+            <select id="dataSelector" [(ngModel)]="selectedData">
+                <option *ngFor="let data of dataSources" [value]="data.value">{{ data.label }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="view-container">
+        <app-graphique *ngIf="selectedView === 'chart'" [data]="chartData"></app-graphique>
+        <app-carte *ngIf="selectedView === 'map'" [data]="mapData"></app-carte>
+        <app-tableau *ngIf="selectedView === 'table'" [data]="tableData"></app-tableau>
+        <app-resume *ngIf="selectedView === 'summary'" [data]="summaryData"></app-resume>
     </div>
 </div>

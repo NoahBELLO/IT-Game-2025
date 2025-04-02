@@ -14,6 +14,7 @@ export class NavigationComponent {
   constructor(private apiService: ApiService) { }
 
   messageVisible: boolean = false;
+  messageErreurVisible: boolean = false;
 
   maj() {
     this.apiService.MAJLogs().subscribe({
@@ -23,6 +24,7 @@ export class NavigationComponent {
       },
       error: (error) => {
         console.error("Erreur lors de la mise à jour des logs", error);
+        this.afficheMessageErreur();
       }
     });
   }
@@ -30,5 +32,10 @@ export class NavigationComponent {
   afficheMessage(): void {
     this.messageVisible = true;
     setTimeout(() => { this.messageVisible = false; }, 1800);
+  }
+
+  afficheMessageErreur(): void {
+    this.messageErreurVisible = true;
+    setTimeout(() => { this.messageErreurVisible = false; }, 1800);
   }
 }

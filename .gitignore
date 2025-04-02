@@ -3,3 +3,5 @@ backend/apiAffichage/environnements/.env
 backend/apiLogs/environnements/.env
 backend/apiLogs/node_modules/
 environnement/conf.d/default.conf
+backend/csv/
+backend/data/
