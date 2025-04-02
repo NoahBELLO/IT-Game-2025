@@ -1,14 +1,27 @@
 .map-container {
-    width: 100%;
-    /* Prend toute la largeur disponible */
-    height: 500px;
-    /* Ou définis une hauteur fixe, ou utilise 100% pour qu'il prenne toute la hauteur de son parent */
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    border: 2px dashed #00ffcc;
+    box-shadow: 0 0 10px #0077ff;
+    width: 80%;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #00ffcc;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 #map {
+    height: 500px;
     width: 100%;
-    /* Prend toute la largeur du parent */
-    height: 100%;
-    /* Prend toute la hauteur du parent */
+    border: 2px solid #00ffcc;
+    box-shadow: 0 0 10px #0077ff;
+    border-radius: 8px;
 }

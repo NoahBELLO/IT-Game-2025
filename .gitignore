@@ -5,3 +5,8 @@ backend/apiLogs/node_modules/
 environnement/conf.d/default.conf
 backend/csv/
 backend/data/
+backend/apiConversion/src/__pycache__/__init__.cpython-311.pyc
+backend/apiConversion/src/__pycache__/model.cpython-311.pyc
+backend/apiConversion/src/__pycache__/routes.cpython-311.pyc
+backend/apiConversion/src/routes/__pycache__/__init__.cpython-311.pyc
+backend/apiConversion/.env

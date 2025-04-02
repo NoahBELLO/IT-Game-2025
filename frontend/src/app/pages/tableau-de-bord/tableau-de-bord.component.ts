@@ -6,16 +6,7 @@ import { TableauComponent } from '../../components/tableau/tableau.component';
 import { GraphiqueComponent } from '../../components/graphique/graphique.component';
 import { CarteComponent } from '../../components/carte/carte.component';
 import { AffichageDonneService } from '../../services/affichage-donne.service';
-
-interface LogData {
-  IP: string;
-  Count: string;
-  Pays: string;
-  Ville: string;
-  Région: string;
-  "VirusTotal Positives": string;
-  "VirusTotal Total": string;
-}
+import { LogData } from '../../interfaces/log-data';
 
 @Component({
   selector: 'app-tableau-de-bord',
@@ -38,12 +29,12 @@ export class TableauDeBordComponent implements OnInit {
     { label: 'Source C', value: 'sourceC' }
   ];
 
-  selectedView = 'chart';
+  selectedView = 'summary';
   selectedData = 'sourceA';
 
   chartData: { labels: string[], values: number[] } = { labels: [], values: [] };
-  mapData: { ip: string, location: string }[] = [];
-  tableData: { source_ip: string, dest_ip: string, protocol: string, timestamp: string }[] = [];
+  mapData: { ip: string, location: string, latitude: number, longitude: number }[] = [];
+  tableData: { source_ip: string, protocol: string, timestamp: string }[] = [];
   summaryData: { total_packets: number, unique_ips: number, top_protocol: string, malicious_ips_detected: number } = {
     total_packets: 0,
     unique_ips: 0,
@@ -56,22 +47,21 @@ export class TableauDeBordComponent implements OnInit {
     this.fetchData();
   }
 
+  isPrivateIp(ip: string): boolean {
+    return /^10\./.test(ip) || /^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(ip) || /^192\.168\./.test(ip);
+  }
+
+
   fetchData(): void {
     this.affichageDonneService.uploadCsv().subscribe((data: LogData[]) => {
       // Mappage des données reçues dans le format que vous voulez
       this.chartData = {
-        labels: data.map(item => item.Pays),
+        labels: data.map(item => item.IP),
         values: data.map(item => parseInt(item.Count, 10))
       };
 
-      this.mapData = data.map(item => ({
-        ip: item.IP,
-        location: `${item.Ville}, ${item.Pays}`
-      }));
-
       this.tableData = data.map(item => ({
         source_ip: item.IP,
-        dest_ip: '',  // Ajoutez une logique si vous avez un champ "dest_ip"
         protocol: 'TCP',  // Fixé à 'TCP' ici, mais à adapter
         timestamp: new Date().toISOString()
       }));
@@ -82,6 +72,22 @@ export class TableauDeBordComponent implements OnInit {
         top_protocol: 'TCP',  // Fixé à 'TCP', à adapter si besoin
         malicious_ips_detected: data.filter(item => parseInt(item['VirusTotal Positives'], 10) > 0).length
       };
-    });
+
+      this.mapData = [];
+      data.forEach(item => {
+        if (!this.isPrivateIp(item.IP)) {
+          this.affichageDonneService.getIpLocation(item.IP).subscribe(response => {
+            if (response.latitude && response.longitude) {
+              this.mapData.push({
+                ip: item.IP,
+                location: `${response.city}, ${response.country_name}`,
+                latitude: response.latitude,
+                longitude: response.longitude
+              })
+            }
+          });
+        }
+      });
+    })
   }
 }

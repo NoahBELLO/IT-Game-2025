@@ -1,11 +1,31 @@
 .resume-container {
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #00ffcc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    padding: 20px;
+    border: 2px dashed #00ffcc;
+    box-shadow: 0 0 10px #0077ff;
+    width: 60%;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
 }
 
-h2 {
-    font-size: 20px;
-    color: #ff0;
+.resume-container h2 {
+    font-size: 26px;
+    color: #00ffcc;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-shadow: 0 0 5px #0077ff;
+}
+
+.resume-container p {
+    font-size: 18px;
+    color: white;
+    margin: 8px 0;
+    padding: 5px 15px;
+    background: rgba(0, 255, 204, 0.2);
+    border-radius: 5px;
+    box-shadow: 0 0 5px #0077ff;
 }

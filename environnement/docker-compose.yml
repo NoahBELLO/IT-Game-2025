@@ -1,8 +1,20 @@
 services:
+  api_conversion:
+    container_name: api_conversion
+    build:
+      context: ../backend/apiConversion
+    volumes:
+      - ../backend/apiConversion:/usr/src/app
+    ports:
+      - "5002:5002"
+    networks:
+      - it_game_projet
+
   api_logs:
     container_name: api_logs
     build:
       context: ../backend/apiLogs
+      dockerfile: Dockerfile
     env_file:
       - ../backend/apiLogs/environnements/.env
     volumes:
