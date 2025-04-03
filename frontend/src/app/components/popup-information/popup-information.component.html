@@ -1,0 +1,34 @@
+<div class="popup">
+    <h2>Résultat Informations IP</h2>
+
+    <p>IP Adresse : {{ data.id }}</p>
+
+    <div *ngIf="data?.attributes?.last_analysis_stats">
+        <ul>
+            <li>
+                <strong>MAC Adress :</strong>{{ data.attributes.last_analysis_stats.malicious || 0 }}
+            </li>
+            <li>
+                <strong>Suspicious :</strong>{{ data.attributes.last_analysis_stats.suspicious || 0 }}
+            </li>
+            <li>
+                <strong>Undetected :</strong>{{ data.attributes.last_analysis_stats.undetected || 0 }}
+            </li>
+            <li>
+                <strong>Harmless :</strong>{{ data.attributes.last_analysis_stats.harmless || 0 }}
+            </li>
+            <li>
+                <strong>Timeout :</strong>{{ data.attributes.last_analysis_stats.timeout || 0 }}
+            </li>
+        </ul>
+    </div>
+
+    <div *ngIf="data?.attributes?.last_analysis_stats">
+        <strong>Comportement suspect :</strong>
+        <p [ngClass]="{'alert': data.attributes.last_analysis_stats.malicious > 0}">
+            {{ data.attributes.last_analysis_stats.malicious }} malveillant(s) détecté(s)
+        </p>
+    </div>
+
+    <button mat-button (click)="close()">Fermer</button>
+</div>

@@ -5,6 +5,8 @@ services:
       context: ../backend/apiConversion
     volumes:
       - ../backend/apiConversion:/usr/src/app
+      - ../backend/data:/usr/src/data
+      - ../backend/csv:/usr/src/csv
     ports:
       - "5002:5002"
     networks:

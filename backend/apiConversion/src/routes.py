@@ -12,16 +12,16 @@ def hello():
 def conversion():
     try:
         # Exécuter le script Python de conversion
-        # result = subprocess.run(
-        #     ["python3", "/usr/src/app/convert_pcap_to_csv.py"],  # Exécuter le script sans paramètres
-        #     capture_output=True, text=True
-        # )
+        result = subprocess.run(
+            ["python3", "/usr/src/app/scripts/lancer_pipeline.py"],  # Exécuter le script sans paramètres
+            capture_output=True, text=True
+        )
 
-        # # Vérifier si la conversion a réussi
-        # if result.returncode != 0:
-        #     return jsonify({"error": "Erreur de conversion", "details": result.stderr}), 500
+        # Vérifier si la conversion a réussi
+        if result.returncode != 0:
+            return jsonify({"error": "Erreur de conversion", "details": result.stderr}), 500
 
-        # return jsonify({"message": "Conversion réussie!", "output": result.stdout}), 200
-        return jsonify({"result": "test"}), 200
+        return jsonify({"message": "Conversion réussie!", "output": result.stdout}), 200
+        # return jsonify({"result": "test"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

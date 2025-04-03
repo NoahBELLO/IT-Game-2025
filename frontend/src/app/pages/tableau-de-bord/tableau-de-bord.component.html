@@ -1,33 +1,3 @@
-<!-- <div class="dashboard">
-    <h2>Tableau de Bord</h2> -->
-
-<!-- Indicateurs Clés -->
-<!-- <div class="indicators">
-        <div *ngFor="let item of data" class="card">
-            <h3>{{ item.name }}</h3>
-            <p>{{ item.value }}</p>
-        </div>
-    </div> -->
-
-<!-- Tableau des données brutes -->
-<!-- <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Valeur</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of data">
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.value }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div> -->
-
 <div class="dashboard-container">
     <div class="controls">
         <div class="combo-box" id="visualisation">
@@ -37,9 +7,13 @@
             </select>
         </div>
 
-        <div class="combo-box" id="donnees">
+        <div>
+            <button (click)="informationsFlag()">Flag</button>
+        </div>
+
+        <div class="combo-box" id="donnees" hidden>
             <label class="nomLabel" for="dataSelector">Données :</label>
-            <select id="dataSelector" [(ngModel)]="selectedData">
+            <select id="dataSelector" [(ngModel)]="selectedData" (ngModelChange)="fetchData()">
                 <option *ngFor="let data of dataSources" [value]="data.value">{{ data.label }}</option>
             </select>
         </div>
@@ -47,7 +21,7 @@
 
     <div class="view-container">
         <app-graphique *ngIf="selectedView === 'chart'" [data]="chartData"></app-graphique>
-        <app-carte *ngIf="selectedView === 'map'" [data]="mapData"></app-carte>
+        <!-- <app-carte *ngIf="selectedView === 'map'" [data]="mapData"></app-carte> -->
         <app-tableau *ngIf="selectedView === 'table'" [data]="tableData"></app-tableau>
         <app-resume *ngIf="selectedView === 'summary'" [data]="summaryData"></app-resume>
     </div>

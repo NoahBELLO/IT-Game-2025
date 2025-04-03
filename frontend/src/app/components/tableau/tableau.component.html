@@ -1,19 +1,33 @@
 <div class="tableau-container">
     <h2>Tableau des données sélectionnées</h2>
-    <table>
-        <tr>
-            <th>IP</th>
-            <th>Protocole</th>
-            <th>Timestamp</th>
-            <th>Vérification VirusTotal</th>
-            <th>Informations sur la cible</th>
-        </tr>
-        <tr *ngFor="let entry of data">
-            <td>{{ entry.source_ip }}</td>
-            <td>{{ entry.protocol }}</td>
-            <td>{{ entry.timestamp }}</td>
-            <td><button (click)="openVirusTotal(entry.source_ip)">Vérification</button></td>
-            <td><button>Informations</button></td>
-        </tr>
-    </table>
+    <div class="table-wrapper">
+        <table>
+            <tr>
+                <th>IP</th>
+                <th hidden>Protocole</th>
+                <th>Timestamp</th>
+                <th>Pays</th>
+                <th>Ville</th>
+                <th>Région</th>
+                <th>Gravité</th>
+                <th>DNS</th>
+                <th>MITRE ATT&CK</th>
+                <th>Vérification VirusTotal</th>
+                <th hidden>Informations sur l'IP</th>
+            </tr>
+            <tr *ngFor="let entry of data">
+                <td>{{ entry.source_ip }}</td>
+                <td hidden>{{ entry.protocol }}</td>
+                <td>{{ entry.timestamp }}</td>
+                <td>{{ entry.pays }}</td>
+                <td>{{ entry.ville }}</td>
+                <td>{{ entry.region }}</td>
+                <td>{{ entry.gravite }}</td>
+                <td>{{ entry.dns }}</td>
+                <td>{{ entry.mitre_attack }}</td>
+                <td><button (click)="openVirusTotal(entry.source_ip)">Vérification</button></td>
+                <td hidden><button (click)="openInformationIP(entry.source_ip)">Informations</button></td>
+            </tr>
+        </table>
+    </div>
 </div>
