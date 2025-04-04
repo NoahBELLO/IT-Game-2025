@@ -8,6 +8,7 @@
         </div>
         <div class="navbar_action">
             <div><button id="maj" (click)="maj()">MAJ des logs</button></div>
+            <div><button id="conversion" (click)="conversion()">Convertir les logs</button></div>
         </div>
     </div>
 </nav>
@@ -18,4 +19,12 @@
 
 <div *ngIf="messageErreurVisible" class="message">
     Les logs n'ont pas été mis à jour !
+</div>
+
+<div *ngIf="messageVisibleConversion" class="message">
+    Les logs ont été converti avec succès !
+</div>
+
+<div *ngIf="messageErreurVisibleConversion" class="message">
+    Les logs n'ont pas été converti !
 </div>

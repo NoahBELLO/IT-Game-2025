@@ -1,83 +1,113 @@
 // import { Component, Input, OnInit } from '@angular/core';
-// import * as L from 'leaflet';
+// import { Map, tileLayer, marker, latLng, icon } from 'leaflet';
 
 // @Component({
 //   selector: 'app-carte',
-//   standalone: true,
-//   imports: [],
 //   templateUrl: './carte.component.html',
-//   styleUrl: './carte.component.scss'
+//   styleUrls: ['./carte.component.scss']
 // })
 // export class CarteComponent implements OnInit {
-//   @Input() data: any;
+//   @Input() data: { ip: string, location: string, latitude: number, longitude: number, gravite: string }[] = [];
+
+//   private map: Map | undefined;
+
+//   // private customIconFaible = icon({
+//   //   iconUrl: 'marqueurFaible.ico', // ou ton SVG
+//   //   iconSize: [32, 48],
+//   //   iconAnchor: [16, 48],
+//   //   popupAnchor: [0, -48]
+//   // });
+
+//   private customIconMoyenne = icon({
+//     iconUrl: 'marqueurMoyenne.ico', // ou ton SVG
+//     iconSize: [10, 20],
+//     iconAnchor: [16, 20],
+//     popupAnchor: [0, -20]
+//   });
+
+//   // private customIconHaut = icon({
+//   //   iconUrl: 'marqueurHaut.ico', // ou ton SVG
+//   //   iconSize: [32, 48],
+//   //   iconAnchor: [16, 48],
+//   //   popupAnchor: [0, -48]
+//   // });
+
 //   ngOnInit(): void {
 //     this.initMap();
 //   }
 
 //   private initMap(): void {
-//     const map = L.map('map', {
-//       center: [51.505, -0.09], // Coordonnées initiales (latitude, longitude)
-//       zoom: 13
+//     // Initialiser la carte avec les coordonnées par défaut
+//     this.map = new Map('map').setView([51.505, -0.09], 2); // Zoom niveau 2 pour voir le monde entier
+
+//     // Ajouter les tuiles OpenStreetMap
+//     tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+
+//     // Ajouter des marqueurs pour chaque localisation
+//     this.data.forEach(item => {
+//       if (item.latitude && item.longitude) {
+//         if (this.map) {
+//           marker([item.latitude, item.longitude], { icon: this.customIconMoyenne })
+//             .addTo(this.map)
+//             .bindPopup(`<b>IP:</b> ${item.ip}<br><b>Location:</b> ${item.location}`);
+//         }
+//       }
 //     });
-
-//     // Ajouter une couche de tuiles (par exemple, OpenStreetMap)
-//     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-//     }).addTo(map);
-
-//     // Ajouter un marqueur
-//     L.marker([51.505, -0.09]).addTo(map)
-//       .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-//       .openPopup();
 //   }
 // }
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import * as L from 'leaflet';
+import { Component, Input, OnInit } from '@angular/core';
+import { Map, tileLayer, marker, latLng, circleMarker } from 'leaflet';
 
 @Component({
   selector: 'app-carte',
-  standalone: true,
-  imports: [],
   templateUrl: './carte.component.html',
-  styleUrl: './carte.component.scss'
+  styleUrls: ['./carte.component.scss']
 })
-export class CarteComponent implements OnInit, OnChanges {
-  @Input() data: { ip: string, location: string, latitude: number, longitude: number }[] = [];
+export class CarteComponent implements OnInit {
+  @Input() data: { ip: string, location: string, latitude: number, longitude: number, gravite: string }[] = [];
 
-  private map!: L.Map;
-  private markersLayer = L.layerGroup(); // Pour gérer les marqueurs
+  private map: Map | undefined;
 
   ngOnInit(): void {
     this.initMap();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['data'] && this.map) {
-      this.updateMarkers();
-    }
-  }
-
   private initMap(): void {
-    this.map = L.map('map', {
-      center: [48.8566, 2.3522], // Coordonnées de départ (Paris)
-      zoom: 2
-    });
+    // Initialiser la carte avec les coordonnées par défaut
+    this.map = new Map('map').setView([51.505, -0.09], 2); // Zoom niveau 2 pour voir le monde entier
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(this.map);
+    // Ajouter les tuiles OpenStreetMap
+    tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
 
-    this.markersLayer.addTo(this.map); // Ajouter la couche des marqueurs
-  }
+    // Ajouter des marqueurs sous forme de cercles pour chaque localisation
+    this.data.forEach(item => {
+      if (item.latitude && item.longitude) {
+        if (this.map) {
+          // Définir la couleur en fonction de la gravité (par exemple)
+          let circleColor: string;
+          switch (item.gravite) {
+            case 'Faible':
+              circleColor = 'green'; // Couleur pour faible gravité
+              break;
+            case 'Moyenne':
+              circleColor = 'orange'; // Couleur pour moyenne gravité
+              break;
+            case 'Haute':
+              circleColor = 'red'; // Couleur pour haute gravité
+              break;
+            default:
+              circleColor = 'blue'; // Couleur par défaut
+          }
 
-  private updateMarkers(): void {
-    this.markersLayer.clearLayers();
-
-    this.data.forEach(entry => {
-      if (entry.latitude && entry.longitude) {
-        const marker = L.marker([entry.latitude, entry.longitude])
-          .bindPopup(`<b>${entry.ip}</b><br>${entry.location}`);
-        this.markersLayer.addLayer(marker);
+          circleMarker([item.latitude, item.longitude], {
+            color: circleColor,
+            radius: 5, // Taille du cercle
+            fillColor: circleColor,
+            fillOpacity: 1
+          })
+            .addTo(this.map)
+            .bindPopup(`<b>IP:</b> ${item.ip}<br><b>Location:</b> ${item.location}`);
+        }
       }
     });
   }

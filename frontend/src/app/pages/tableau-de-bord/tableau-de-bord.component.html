@@ -7,21 +7,21 @@
             </select>
         </div>
 
-        <div>
+        <div class="combo-box" id="donnees">
             <button (click)="informationsFlag()">Flag</button>
         </div>
 
-        <div class="combo-box" id="donnees" hidden>
+        <!-- <div class="combo-box" id="donnees" hidden>
             <label class="nomLabel" for="dataSelector">Données :</label>
             <select id="dataSelector" [(ngModel)]="selectedData" (ngModelChange)="fetchData()">
                 <option *ngFor="let data of dataSources" [value]="data.value">{{ data.label }}</option>
             </select>
-        </div>
+        </div> -->
     </div>
 
     <div class="view-container">
         <app-graphique *ngIf="selectedView === 'chart'" [data]="chartData"></app-graphique>
-        <!-- <app-carte *ngIf="selectedView === 'map'" [data]="mapData"></app-carte> -->
+        <app-carte *ngIf="selectedView === 'map'" [data]="mapData"></app-carte>
         <app-tableau *ngIf="selectedView === 'table'" [data]="tableData"></app-tableau>
         <app-resume *ngIf="selectedView === 'summary'" [data]="summaryData"></app-resume>
     </div>

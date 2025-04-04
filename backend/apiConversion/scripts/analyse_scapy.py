@@ -65,5 +65,5 @@ def pcap_to_csv(pcap_file):
     return df
 
 # Exemple d'utilisation
-pcap_file = "/usr/src/data/logs.pcap"  # Remplacez ce chemin par votre fichier PCAP
+pcap_file = "/usr/src/data/chall_wshark6.pcap"  # Remplacez ce chemin par votre fichier PCAP
 df = pcap_to_csv(pcap_file)

@@ -8,10 +8,15 @@ import { Observable } from 'rxjs';
 export class ApiService {
 
   private apiUrl = 'http://localhost:3000/logs/';
+  private apiUrlConvesion = 'http://localhost:3000/conversion/';
 
   constructor(private http: HttpClient) { }
 
   MAJLogs(): Observable<any> {
     return this.http.get(this.apiUrl, {});
+  }
+
+  convertion(): Observable<any> {
+    return this.http.get(this.apiUrlConvesion, {});
   }
 }

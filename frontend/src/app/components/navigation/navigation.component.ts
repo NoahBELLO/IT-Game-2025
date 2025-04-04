@@ -15,6 +15,8 @@ export class NavigationComponent {
 
   messageVisible: boolean = false;
   messageErreurVisible: boolean = false;
+  messageVisibleConversion: boolean = false;
+  messageErreurVisibleConversion: boolean = false;
 
   maj() {
     this.apiService.MAJLogs().subscribe({
@@ -29,6 +31,19 @@ export class NavigationComponent {
     });
   }
 
+  conversion() {
+    this.apiService.convertion().subscribe({
+      next: (response) => {
+        console.log("Logs converti avec succès", response);
+        this.afficheMessageConversion();
+      },
+      error: (error) => {
+        console.error("Erreur lors de la conversion des logs", error);
+        this.afficheMessageErreurConversion();
+      }
+    });
+  }
+
   afficheMessage(): void {
     this.messageVisible = true;
     setTimeout(() => { this.messageVisible = false; }, 1800);
@@ -37,5 +52,15 @@ export class NavigationComponent {
   afficheMessageErreur(): void {
     this.messageErreurVisible = true;
     setTimeout(() => { this.messageErreurVisible = false; }, 1800);
+  }
+
+  afficheMessageConversion(): void {
+    this.messageVisibleConversion = true;
+    setTimeout(() => { this.messageVisibleConversion = false; }, 1800);
+  }
+
+  afficheMessageErreurConversion(): void {
+    this.messageErreurVisibleConversion = true;
+    setTimeout(() => { this.messageErreurVisibleConversion = false; }, 1800);
   }
 }

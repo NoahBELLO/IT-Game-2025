@@ -181,6 +181,7 @@ def get_geolocation(ip):
             "Pays": data.get("country", "Inconnu"),
             "Ville": data.get("city", "Inconnue"),
             "Région": data.get("region", "Inconnue"),
+            "Localisation":data.get("loc", "0, 0")
         }
     except Exception:
         return {"Pays": "Erreur", "Ville": "Erreur", "Région": "Erreur"}
@@ -239,6 +240,7 @@ def process_alert_for_ip(ip, api_key_virustotal):
         "Pays": geolocation["Pays"],
         "Ville": geolocation["Ville"],
         "Région": geolocation["Région"],
+        "Localisation": geolocation["Localisation"],
         "VirusTotal": virustotal_info["malicious"],
         "Suspicious": virustotal_info["suspicious"],
         "Harmless": virustotal_info["harmless"],
@@ -277,7 +279,7 @@ def process_alerts(input_csv, api_key_virustotal):
     print(f"Les alertes ont été enregistrées dans 'alertes.json' et 'alertes.csv'.")
 
 # Exemple d'appel de la fonction
-input_csv = "/usr/src/csv/logs_analyse_top_ips_info.csv"  # Remplacer par ton fichier CSV d'entrée
+input_csv = "/usr/src/csv/chall_wshark6_analyse_top_ips_info.csv"  # Remplacer par ton fichier CSV d'entrée
 # api_key_virustotal = "ed83782b93965ac6499edd2e3326af028326048fd48654c5145b0eda113f7866"  
 api_key_virustotal = "9896edffe19fb69138b00792d7435b83e9bb177cd53a5e2396a64ba72fa8e6e3"  
 process_alerts(input_csv, api_key_virustotal)

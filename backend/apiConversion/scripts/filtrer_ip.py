@@ -79,5 +79,5 @@ def filter_top_ips(input_csv):
     return df_top_ips_info
 
 # Exemple d'utilisation
-input_csv = "/usr/src/csv/logs_analyse.csv"  
+input_csv = "/usr/src/csv/chall_wshark6_analyse.csv"  
 df_top_ips = filter_top_ips(input_csv)

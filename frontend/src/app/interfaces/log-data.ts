@@ -8,6 +8,6 @@ export interface LogData {
     Ville: string;
     "R\u00e9gion": string;
     "Gravit\u00e9": string;
-    "VirusTotal Positives": string;
-    "VirusTotal Total": string;
+    Localisation: string;
+    "VirusTotal": string;
 }
